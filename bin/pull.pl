@@ -122,7 +122,7 @@ sub login {
 sub get_device_id {
     my ($dsn, $accessToken) = @_;
     my $req = HTTP::Request->new('GET', 'https://ads-field.aylanetworks.com/apiv1/dsns/'.$dsn.'.json');
-    $req->header('Authorization' => 'aoth_token '.$accessToken);
+    $req->header('Authorization' => 'auth_token '.$accessToken);
     $req->header( 'Content-Type' => 'application/json');
     my $lwp = LWP::UserAgent->new;
     $lwp->timeout(15);
@@ -142,7 +142,7 @@ sub get_model_id {
     # /apiv1/dsns/{dsn}/properties.json
     my $properties = 'names[]=model_id&names[]=system_type';
     my $req = HTTP::Request->new('GET', "https://ads-field.aylanetworks.com/apiv1/dsns/$dsn/properties.json?$properties");
-    $req->header('Authorization' => 'aoth_token '.$accessToken);
+    $req->header('Authorization' => 'auth_token '.$accessToken);
     $req->header( 'Content-Type' => 'application/json');
     my $lwp = LWP::UserAgent->new;
     $lwp->timeout(15);
@@ -180,7 +180,7 @@ sub set_data_point {
     # Create Request
     my $req = HTTP::Request->new('POST', "https://ads-field.aylanetworks.com/apiv1/dsns/$dsn/properties/$key/datapoints.json");
     my $frequentDataRequest = {'datapoint' => {'value' => $value}};
-    $req->header('Authorization' => 'aoth_token '.$accessToken);
+    $req->header('Authorization' => 'auth_token '.$accessToken);
     $req->header( 'Content-Type' => 'application/json');
     $req->content($json->encode($frequentDataRequest));
     my $lwp = LWP::UserAgent->new;
@@ -253,7 +253,7 @@ sub get_data {
 sub is_online {
     my ($deviceId, $accessToken) = @_;
     my $req = HTTP::Request->new('GET', 'https://ads-field.aylanetworks.com/apiv1/devices/'.$deviceId.'.json');
-    $req->header('Authorization' => 'aoth_token '.$accessToken);
+    $req->header('Authorization' => 'auth_token '.$accessToken);
     $req->header( 'Content-Type' => 'application/json');
     my $lwp = LWP::UserAgent->new;
     $lwp->timeout(15);
